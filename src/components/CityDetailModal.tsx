@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { CityData } from '../services/dataService';
+import { CityData, getWorldCities } from '../services/dataService';
 import { Bar, Line } from 'react-chartjs-2';
 import '../styles/modal.css';
 
@@ -14,7 +14,40 @@ interface CityDetailModalProps {
 }
 
 const CityDetailModal: React.FC<CityDetailModalProps> = ({ isOpen, onRequestClose, city }) => {
-  if (!city) return null;
+  const [allCities, setAllCities] = useState<CityData[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCity, setSelectedCity] = useState<CityData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [showSearch, setShowSearch] = useState(true);
+
+  // Load all cities when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setLoading(true);
+      getWorldCities().then(cities => {
+        setAllCities(cities);
+        setLoading(false);
+      });
+    }
+  }, [isOpen]);
+
+  // Reset state when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      // Don't automatically set the city, force user to search first
+      setSelectedCity(null);
+      setShowSearch(true);
+      setSearchTerm('');
+    }
+  }, [isOpen, city]);
+
+  // Filter cities based on search term
+  const filteredCities = searchTerm 
+    ? allCities.filter(c => 
+        c.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        c.country.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   // Format population with commas
   const formatPopulation = (pop: number) => {
@@ -28,111 +61,12 @@ const CityDetailModal: React.FC<CityDetailModalProps> = ({ isOpen, onRequestClos
       const yearFactor = (i - 9) * trend;
       // Add some randomness
       const randomFactor = (Math.random() - 0.5) * volatility;
-      return baseValue * (1 + yearFactor + randomFactor);
+      // Calculate value
+      return Math.max(0, baseValue * (1 + yearFactor + randomFactor));
     });
   };
 
-  // Generate historical population data
-  const populationHistory = generateHistoricalData(
-    city.population * 0.9, // Start with 90% of current population
-    0.02, // Low volatility
-    0.01  // Upward trend
-  );
-
-  // Generate historical traffic data
-  const trafficHistory = generateHistoricalData(
-    city.traffic * 0.8, // Start with 80% of current traffic
-    0.1,  // Medium volatility
-    0.02  // Stronger upward trend
-  );
-
-  // Generate historical growth rate data
-  const growthHistory = generateHistoricalData(
-    city.growth,
-    0.5,  // High volatility
-    -0.01 // Slight downward trend (growth rates tend to decrease)
-  );
-
-  // Chart data
-  const years = Array.from({ length: 10 }, (_, i) => (new Date().getFullYear() - 9 + i).toString());
-
-  const populationChartData = {
-    labels: years,
-    datasets: [
-      {
-        label: 'Population (millions)',
-        data: populationHistory,
-        borderColor: '#6366f1',
-        backgroundColor: 'rgba(99, 102, 241, 0.1)',
-        tension: 0.4,
-        fill: true
-      }
-    ]
-  };
-
-  const trafficChartData = {
-    labels: years,
-    datasets: [
-      {
-        label: 'Traffic Index',
-        data: trafficHistory,
-        borderColor: '#3b82f6',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        tension: 0.4,
-        fill: true
-      }
-    ]
-  };
-
-  const growthChartData = {
-    labels: years,
-    datasets: [
-      {
-        label: 'Annual Growth Rate (%)',
-        data: growthHistory,
-        borderColor: '#10b981',
-        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-        tension: 0.4,
-        fill: true
-      }
-    ]
-  };
-
-  // Chart options
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false
-      },
-      tooltip: {
-        backgroundColor: '#1e293b',
-        titleColor: '#fff',
-        bodyColor: '#94a3b8',
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-        borderWidth: 1
-      }
-    },
-    scales: {
-      x: {
-        grid: {
-          color: 'rgba(255, 255, 255, 0.05)'
-        },
-        ticks: {
-          color: '#94a3b8'
-        }
-      },
-      y: {
-        grid: {
-          color: 'rgba(255, 255, 255, 0.05)'
-        },
-        ticks: {
-          color: '#94a3b8'
-        }
-      }
-    }
-  };
+  if (!isOpen) return null;
 
   return (
     <Modal
@@ -142,123 +76,272 @@ const CityDetailModal: React.FC<CityDetailModalProps> = ({ isOpen, onRequestClos
       overlayClassName="city-modal-overlay"
     >
       <div className="city-modal-header">
-        <div className="city-modal-title">
-          <h2>{city.name}</h2>
-          <div className="city-modal-subtitle">{city.country} {city.flag && <img src={city.flag} alt={`${city.country} flag`} className="country-flag" />}</div>
-        </div>
-        <button className="city-modal-close" onClick={onRequestClose}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-          </svg>
-        </button>
+        <h2>{selectedCity ? 'City Details' : 'Search for a City'}</h2>
+        <button className="city-modal-close" onClick={onRequestClose}>×</button>
       </div>
 
-      <div className="city-modal-content">
-        <div className="city-modal-stats">
-          <div className="city-stat-card">
-            <div className="city-stat-title">Population</div>
-            <div className="city-stat-value">{formatPopulation(city.populationRaw)}</div>
-            <div className="city-stat-description">
-              {city.growth > 0 ? (
-                <div className="trend-up">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
-                  </svg>
-                  {city.growth}% annual growth
+      <div className="city-search-container">
+        <div className="city-search-box">
+          <div className="city-search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </div>
+          <input 
+            type="text" 
+            placeholder="Search for a city..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="city-search-input"
+            autoFocus
+          />
+        </div>
+
+        {searchTerm && (
+          <div className="city-search-results">
+            {loading ? (
+              <div className="search-loading">Loading cities...</div>
+            ) : filteredCities.length > 0 ? (
+              filteredCities.slice(0, 10).map(city => (
+                <div 
+                  key={city.id} 
+                  className="city-search-item"
+                  onClick={() => {
+                    setSelectedCity(city);
+                    setSearchTerm('');
+                    setShowSearch(false);
+                  }}
+                >
+                  <div className="city-search-name">{city.name}</div>
+                  <div className="city-search-country">{city.country}</div>
                 </div>
-              ) : (
-                <div className="trend-down">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
-                  </svg>
-                  {Math.abs(city.growth)}% annual decline
+              ))
+            ) : (
+              <div className="no-results">No cities found</div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {selectedCity ? (
+        <div className="city-modal-content">
+          <div className="city-modal-hero">
+            <div className="city-flag">
+              {selectedCity.flag && <img src={selectedCity.flag} alt={`${selectedCity.country} flag`} />}
+            </div>
+            <div className="city-title">
+              <h3>{selectedCity.name}</h3>
+              <p>{selectedCity.country} • {selectedCity.capital ? 'Capital City' : 'Major City'}</p>
+            </div>
+            <button 
+              className="change-city-btn" 
+              onClick={() => {
+                setShowSearch(true);
+                setSelectedCity(null);
+              }}
+            >
+              Change City
+            </button>
+          </div>
+
+          <div className="city-modal-stats">
+            <div className="city-stat-card">
+              <div className="city-stat-title">Population</div>
+              <div className="city-stat-value">{formatPopulation(selectedCity.populationRaw)}</div>
+              <div className="city-stat-description">
+                {selectedCity.growth > 0 ? 'Growing' : 'Declining'} at {selectedCity.growth}% annually
+              </div>
+            </div>
+
+            <div className="city-stat-card">
+              <div className="city-stat-title">Population Density</div>
+              <div className="city-stat-value">{selectedCity.density.toFixed(1)}</div>
+              <div className="city-stat-description">people per km²</div>
+            </div>
+
+            <div className="city-stat-card">
+              <div className="city-stat-title">GDP Per Capita</div>
+              <div className="city-stat-value">${selectedCity.gdp.toLocaleString()}</div>
+              <div className="city-stat-description">USD</div>
+            </div>
+
+            <div className="city-stat-card">
+              <div className="city-stat-title">Traffic Index</div>
+              <div className="city-stat-value">{selectedCity.traffic}</div>
+              <div className="city-stat-description">out of 100</div>
+            </div>
+          </div>
+
+          <div className="city-modal-details">
+            <div className="city-detail-card">
+              <h4>Geographic Information</h4>
+              <div className="city-detail-item">
+                <span className="detail-label">Region:</span>
+                <span className="detail-value">{selectedCity.region}</span>
+              </div>
+              {selectedCity.subregion && (
+                <div className="city-detail-item">
+                  <span className="detail-label">Subregion:</span>
+                  <span className="detail-value">{selectedCity.subregion}</span>
+                </div>
+              )}
+              <div className="city-detail-item">
+                <span className="detail-label">Coordinates:</span>
+                <span className="detail-value">{selectedCity.lat.toFixed(2)}° N, {selectedCity.lng.toFixed(2)}° E</span>
+              </div>
+              <div className="city-detail-item">
+                <span className="detail-label">Area:</span>
+                <span className="detail-value">{selectedCity.area.toLocaleString()} km²</span>
+              </div>
+            </div>
+
+            <div className="city-detail-card">
+              <h4>Cultural Information</h4>
+              {selectedCity.languages && selectedCity.languages.length > 0 && (
+                <div className="city-detail-item">
+                  <span className="detail-label">Languages:</span>
+                  <span className="detail-value">{selectedCity.languages.join(', ')}</span>
+                </div>
+              )}
+              {selectedCity.currencies && selectedCity.currencies.length > 0 && (
+                <div className="city-detail-item">
+                  <span className="detail-label">Currencies:</span>
+                  <span className="detail-value">{selectedCity.currencies.join(', ')}</span>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="city-stat-card">
-            <div className="city-stat-title">Population Density</div>
-            <div className="city-stat-value">{city.density}</div>
-            <div className="city-stat-description">people per km²</div>
-          </div>
-
-          <div className="city-stat-card">
-            <div className="city-stat-title">Traffic Index</div>
-            <div className="city-stat-value">{city.traffic}</div>
-            <div className="city-stat-description">
-              {city.traffic > 75 ? 'Heavy traffic' : 
-               city.traffic > 50 ? 'Moderate traffic' : 'Light traffic'}
+          <div className="city-modal-charts">
+            <div className="city-chart-container">
+              <h4>Population Growth (10 Year Trend)</h4>
+              <Line 
+                data={{
+                  labels: Array.from({ length: 10 }, (_, i) => (new Date().getFullYear() - 9 + i).toString()),
+                  datasets: [{
+                    label: 'Population (millions)',
+                    data: generateHistoricalData(
+                      selectedCity.population, 
+                      0.05, // volatility
+                      selectedCity.growth / 100 // trend based on growth rate
+                    ),
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                  }]
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      display: false
+                    }
+                  },
+                  scales: {
+                    y: {
+                      beginAtZero: false,
+                      grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                      },
+                      ticks: {
+                        color: '#94a3b8'
+                      }
+                    },
+                    x: {
+                      grid: {
+                        display: false
+                      },
+                      ticks: {
+                        color: '#94a3b8'
+                      }
+                    }
+                  }
+                }}
+              />
             </div>
-          </div>
 
-          <div className="city-stat-card">
-            <div className="city-stat-title">GDP per Capita</div>
-            <div className="city-stat-value">${city.gdp.toLocaleString()}</div>
-            <div className="city-stat-description">
-              {city.gdp > 40000 ? 'High income' : 
-               city.gdp > 12000 ? 'Upper middle income' : 
-               city.gdp > 4000 ? 'Lower middle income' : 'Low income'}
+            <div className="city-chart-container">
+              <h4>Economic Indicators</h4>
+              <Bar 
+                data={{
+                  labels: ['GDP', 'Traffic', 'Growth'],
+                  datasets: [{
+                    label: 'Metrics',
+                    data: [
+                      selectedCity.gdp / 1000, // Scale down GDP for visualization
+                      selectedCity.traffic,
+                      selectedCity.growth * 10 // Scale up growth for visualization
+                    ],
+                    backgroundColor: [
+                      'rgba(16, 185, 129, 0.7)', // green
+                      'rgba(59, 130, 246, 0.7)', // blue
+                      selectedCity.growth > 0 ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)' // green or red
+                    ],
+                    borderRadius: 6
+                  }]
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      display: false
+                    },
+                    tooltip: {
+                      callbacks: {
+                        label: function(context) {
+                          const label = context.dataset.label || '';
+                          const value = context.parsed.y;
+                          const index = context.dataIndex;
+                          
+                          if (index === 0) {
+                            return `GDP: $${(value * 1000).toLocaleString()}`;
+                          } else if (index === 1) {
+                            return `Traffic Index: ${value}`;
+                          } else {
+                            return `Growth Rate: ${value / 10}%`;
+                          }
+                        }
+                      }
+                    }
+                  },
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                      },
+                      ticks: {
+                        color: '#94a3b8'
+                      }
+                    },
+                    x: {
+                      grid: {
+                        display: false
+                      },
+                      ticks: {
+                        color: '#94a3b8'
+                      }
+                    }
+                  }
+                }}
+              />
             </div>
           </div>
         </div>
-
-        <div className="city-modal-details">
-          <div className="city-detail-item">
-            <div className="city-detail-label">Region:</div>
-            <div className="city-detail-value">{city.region}</div>
+      ) : (
+        <div className="city-modal-placeholder">
+          <div className="placeholder-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+              <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
           </div>
-          {city.subregion && (
-            <div className="city-detail-item">
-              <div className="city-detail-label">Subregion:</div>
-              <div className="city-detail-value">{city.subregion}</div>
-            </div>
-          )}
-          {city.languages && city.languages.length > 0 && (
-            <div className="city-detail-item">
-              <div className="city-detail-label">Languages:</div>
-              <div className="city-detail-value">{city.languages.join(', ')}</div>
-            </div>
-          )}
-          {city.currencies && city.currencies.length > 0 && (
-            <div className="city-detail-item">
-              <div className="city-detail-label">Currencies:</div>
-              <div className="city-detail-value">{city.currencies.join(', ')}</div>
-            </div>
-          )}
-          <div className="city-detail-item">
-            <div className="city-detail-label">Area:</div>
-            <div className="city-detail-value">{city.area.toLocaleString()} km²</div>
-          </div>
-          <div className="city-detail-item">
-            <div className="city-detail-label">Coordinates:</div>
-            <div className="city-detail-value">{city.lat.toFixed(4)}, {city.lng.toFixed(4)}</div>
-          </div>
+          <p>Search for a city to view detailed information</p>
         </div>
-
-        <div className="city-modal-charts">
-          <div className="city-chart-container">
-            <h3>Population Trend (10 Years)</h3>
-            <div className="city-chart">
-              <Line data={populationChartData} options={chartOptions} />
-            </div>
-          </div>
-          
-          <div className="city-chart-container">
-            <h3>Traffic Index Trend (10 Years)</h3>
-            <div className="city-chart">
-              <Line data={trafficChartData} options={chartOptions} />
-            </div>
-          </div>
-          
-          <div className="city-chart-container">
-            <h3>Growth Rate Trend (10 Years)</h3>
-            <div className="city-chart">
-              <Line data={growthChartData} options={chartOptions} />
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </Modal>
   );
 };

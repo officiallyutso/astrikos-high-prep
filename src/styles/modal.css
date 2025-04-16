@@ -1,4 +1,3 @@
-/* Modal Styles */
 .city-modal-overlay {
   position: fixed;
   top: 0;
@@ -10,19 +9,18 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(4px);
+  padding: 1rem;
 }
 
 .city-modal {
-  background: #1e293b;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 1200px;
+  background-color: #1e293b;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #e2e8f0;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   outline: none;
 }
 
@@ -30,114 +28,211 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.city-modal-title {
-  display: flex;
-  flex-direction: column;
-}
-
-.city-modal-title h2 {
+.city-modal-header h2 {
   margin: 0;
-  font-size: 1.75rem;
-  font-weight: 700;
   color: #fff;
-}
-
-.city-modal-subtitle {
-  font-size: 1rem;
-  color: #94a3b8;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.country-flag {
-  height: 1rem;
-  border-radius: 2px;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .city-modal-close {
   background: transparent;
   border: none;
   color: #94a3b8;
+  font-size: 1.5rem;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s;
 }
 
 .city-modal-close:hover {
-  background: rgba(255, 255, 255, 0.1);
   color: #fff;
+}
+
+.city-search-container {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.city-search-box {
+  display: flex;
+  align-items: center;
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 0 0.75rem;
+}
+
+.city-search-icon {
+  color: #64748b;
+  margin-right: 0.5rem;
+}
+
+.city-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 0.75rem 0;
+  font-size: 0.875rem;
+}
+
+.city-search-input:focus {
+  outline: none;
+}
+
+.city-search-results {
+  margin-top: 0.5rem;
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.city-search-item {
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.city-search-item:last-child {
+  border-bottom: none;
+}
+
+.city-search-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.city-search-name {
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.city-search-country {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.no-results {
+  padding: 1rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.search-loading {
+  padding: 1rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .city-modal-content {
   padding: 1.5rem;
 }
 
+.city-modal-hero {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.city-flag {
+  width: 60px;
+  height: 40px;
+  margin-right: 1rem;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.city-flag img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.city-title h3 {
+  margin: 0 0 0.25rem;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.city-title p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
 .city-modal-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .city-stat-card {
-  background: rgba(15, 23, 42, 0.5);
+  background-color: #0f172a;
   border-radius: 8px;
-  padding: 1.25rem;
+  padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .city-stat-title {
-  font-size: 0.875rem;
   color: #94a3b8;
+  font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }
 
 .city-stat-value {
-  font-size: 1.5rem;
-  font-weight: 700;
   color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .city-stat-description {
-  font-size: 0.875rem;
-  color: #94a3b8;
+  color: #64748b;
+  font-size: 0.75rem;
 }
 
 .city-modal-details {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
-  margin-bottom: 2rem;
-  background: rgba(15, 23, 42, 0.5);
+  margin-bottom: 1.5rem;
+}
+
+.city-detail-card {
+  background-color: #0f172a;
   border-radius: 8px;
-  padding: 1.25rem;
+  padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.city-detail-card h4 {
+  color: #fff;
+  font-size: 1rem;
+  margin: 0 0 1rem;
 }
 
 .city-detail-item {
   display: flex;
   margin-bottom: 0.5rem;
-}
-
-.city-detail-label {
-  font-weight: 600;
-  color: #94a3b8;
-  width: 100px;
-  flex-shrink: 0;
-}
-
-.city-detail-value {
-  color: #fff;
 }
 
 .city-modal-charts {
@@ -147,21 +242,32 @@
 }
 
 .city-chart-container {
-  background: rgba(15, 23, 42, 0.5);
+  background-color: #0f172a;
   border-radius: 8px;
-  padding: 1.25rem;
+  padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  height: 300px;
 }
 
-.city-chart-container h3 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1rem;
+.city-chart-container h4 {
   color: #fff;
+  font-size: 1rem;
+  margin: 0 0 1rem;
 }
 
-.city-chart {
-  height: 250px;
+.city-modal-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.placeholder-icon {
+  color: #64748b;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -170,9 +276,28 @@
   .city-modal-charts {
     grid-template-columns: 1fr;
   }
-  
-  .city-modal {
-    width: 95%;
-    max-height: 95vh;
-  }
+}
+
+/* Add this to your modal.css file */
+.change-city-btn {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background-color 0.2s;
+}
+
+.change-city-btn:hover {
+  background-color: #4f46e5;
+}
+
+.city-modal-hero {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }

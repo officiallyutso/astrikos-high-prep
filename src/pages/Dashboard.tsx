@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CustomizableChart from '../components/CustomizableChart';
 import { useAuth } from '../context/AuthContext';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -447,7 +448,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <span className={`nav-link-text ${sidebarCollapsed ? 'nav-link-text-collapsed' : ''}`}>
-                Analytics
+                Visualization
               </span>
             </a>
             <a href="#" className="nav-link">
@@ -488,7 +489,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <span className={`nav-link-text ${sidebarCollapsed ? 'nav-link-text-collapsed' : ''}`}>
-                Projects
+                Editor Mode
               </span>
             </a>
             <a href="#" className="nav-link">
@@ -498,7 +499,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <span className={`nav-link-text ${sidebarCollapsed ? 'nav-link-text-collapsed' : ''}`}>
-                Reports
+                View Mode
               </span>
             </a>
           </div>
@@ -539,14 +540,7 @@ export default function Dashboard() {
       <div className={`main-content ${sidebarCollapsed ? 'main-content-expanded' : ''}`}>
         {/* Dashboard Header */}
         <div className="dashboard-header">
-          <div className="header-search">
-            <div className="search-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-              </svg>
-            </div>
-            <input type="text" placeholder="Search..." />
-          </div>
+          
           <div className="header-actions">
             <button className="header-btn">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
@@ -808,30 +802,24 @@ export default function Dashboard() {
 
         {/* Additional Charts */}
         <div className="charts-grid">
-          <div className="small-chart-container" onClick={() => openCityModal(cityData.slice(0, 10)[0])}>
-            <div className="chart-header">
-              <h3 className="chart-title">Population by City</h3>
-            </div>
-            <div className="chart-body">
-              <Bar data={populationData} options={chartOptions} />
-            </div>
-          </div>
-          <div className="small-chart-container" onClick={() => openCityModal(cityData.slice(0, 10)[0])}>
-            <div className="chart-header">
-              <h3 className="chart-title">Traffic Index</h3>
-            </div>
-            <div className="chart-body">
-              <Line data={trafficData} options={chartOptions} />
-            </div>
-          </div>
-          <div className="small-chart-container" onClick={() => openCityModal(cityData.slice(0, 10)[0])}>
-            <div className="chart-header">
-              <h3 className="chart-title">Annual Growth Rate</h3>
-            </div>
-            <div className="chart-body">
-              <Bar data={growthData} options={chartOptions} />
-            </div>
-          </div>
+          <CustomizableChart 
+            type="bar" 
+            title="Population by City" 
+            dataKey="population" 
+            initialCityCount={10}
+          />
+          <CustomizableChart 
+            type="line" 
+            title="Traffic Index" 
+            dataKey="traffic" 
+            initialCityCount={10}
+          />
+          <CustomizableChart 
+            type="bar" 
+            title="Annual Growth Rate" 
+            dataKey="growth" 
+            initialCityCount={10}
+          />
         </div>
 
         {/* D3 Visualization */}
@@ -839,7 +827,12 @@ export default function Dashboard() {
           <div className="section-header">
             <h2 className="section-title">Population Distribution</h2>
           </div>
-          <div id="d3-chart"></div>
+          <CustomizableChart 
+            type="bar" 
+            title="Population Distribution" 
+            dataKey="population" 
+            initialCityCount={15}
+          />
         </div>
       </div>
 
