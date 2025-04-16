@@ -1,0 +1,178 @@
+/* Modal Styles */
+.city-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.city-modal {
+  background: #1e293b;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  outline: none;
+}
+
+.city-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.city-modal-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.city-modal-title h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.city-modal-subtitle {
+  font-size: 1rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.country-flag {
+  height: 1rem;
+  border-radius: 2px;
+}
+
+.city-modal-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.city-modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.city-modal-content {
+  padding: 1.5rem;
+}
+
+.city-modal-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.city-stat-card {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.city-stat-title {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.city-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.city-stat-description {
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.city-modal-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.city-detail-item {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.city-detail-label {
+  font-weight: 600;
+  color: #94a3b8;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.city-detail-value {
+  color: #fff;
+}
+
+.city-modal-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.city-chart-container {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.city-chart-container h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.city-chart {
+  height: 250px;
+}
+
+@media (max-width: 768px) {
+  .city-modal-stats,
+  .city-modal-details,
+  .city-modal-charts {
+    grid-template-columns: 1fr;
+  }
+  
+  .city-modal {
+    width: 95%;
+    max-height: 95vh;
+  }
+}
