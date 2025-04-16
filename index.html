@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrikos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="globe-container"></div>
+    
+    <header>
+        <div class="container">
+            <nav>
+                <img src="images\logo.png" alt="Astrikos Logo">
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">Analytics</a>
+                    <a href="visualize.html">Visualize</a>
+                    <a href="#">Demo</a>
+                </div>
+                <div class="nav-auth">
+                    <div class="user-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Welcome to Astrikos</h1>
+                    <p>Explore geographical data with powerful analytics tools. Visualize urban infrastructure, weather patterns, population density, and more with our interactive platform.</p>
+                    <a href="#" class="cta-button">
+                        Get Started
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </section>
+            
+            <section class="city-preview">
+                <h2>Urban Infrastructure Analysis</h2>
+                <div class="city-model">
+                    <img src="/api/placeholder/800/300" alt="3D City Model" />
+                    <div class="toolbox">
+                        <div class="tool-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 3h6v6"></path>
+                                <path d="M10 14L21 3"></path>
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            </svg>
+                        </div>
+                        <div class="tool-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                <path d="M2 12h20"></path>
+                            </svg>
+                        </div>
+                        <div class="tool-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="1 4 1 10 7 10"></polyline>
+                                <polyline points="23 20 23 14 17 14"></polyline>
+                                <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                            </svg>
+                        </div>
+                        <div class="tool-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                            <line x1="8" y1="2" x2="8" y2="18"></line>
+                            <line x1="16" y1="6" x2="16" y2="22"></line>
+                        </svg>
+                    </div>
+                    <h3>Interactive Maps</h3>
+                    <p>Explore detailed maps with customizable layers for infrastructure, weather, demographics, and more.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                            <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Data Analysis</h3>
+                    <p>Powerful tools for analyzing geographical data, population trends, and infrastructure planning.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Visualization</h3>
+                    <p>Create stunning visualizations of geographical data with customizable charts and graphs.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Initialize the globe
+        const initGlobe = () => {
+            // Create scene
+            const scene = new THREE.Scene();
+            
+            // Create camera
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+            camera.position.z = 800;
+            
+            // Create renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setClearColor(0x000000, 1);
+            
+            // Add renderer to DOM
+            document.getElementById('globe-container').appendChild(renderer.domElement);
+            
+            // Create Earth wireframe
+            const earthGeometry = new THREE.SphereGeometry(350, 64, 64);
+            
+            // Create main wireframe material - changed to a more subtle blue
+            const wireframeMaterial = new THREE.MeshBasicMaterial({
+                color: 0x1a5fa4,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.2
+            });
+            
+            const earth = new THREE.Mesh(earthGeometry, wireframeMaterial);
+            scene.add(earth);
+            
+            // Add a glowing sphere inside
+            const glowGeometry = new THREE.SphereGeometry(335, 64, 64);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0x0a2e50,
+                transparent: true,
+                opacity: 0.2
+            });
+            const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+            scene.add(glow);
+            
+            // Create latitude and longitude lines with more subtle appearance
+            const createGlobeLines = () => {
+                const lineGroup = new THREE.Group();
+                
+                // Longitude lines - reduced number for cleaner look
+                for (let i = 0; i < 18; i++) {
+                    const longitude = new THREE.CircleGeometry(350, 64, 0, Math.PI * 2);
+                    longitude.rotateY(Math.PI / 9 * i);
+                    
+                    const longitudeLine = new THREE.LineSegments(
+                        new THREE.EdgesGeometry(longitude),
+                        new THREE.LineBasicMaterial({ color: 0x2980b9, transparent: true, opacity: 0.15 })
+                    );
+                    
+                    lineGroup.add(longitudeLine);
+                }
+                
+                // Latitude lines - reduced number for cleaner look
+                for (let i = 0; i < 9; i++) {
+                    const phi = Math.PI / 9 * i;
+                    const radius = 350 * Math.sin(phi);
+                    const y = 350 * Math.cos(phi);
+                    
+                    const latitude = new THREE.CircleGeometry(radius, 64);
+                    const latitudeLine = new THREE.LineSegments(
+                        new THREE.EdgesGeometry(latitude),
+                        new THREE.LineBasicMaterial({ color: 0x2980b9, transparent: true, opacity: 0.15 })
+                    );
+                    
+                    latitudeLine.rotation.x = Math.PI / 2;
+                    latitudeLine.position.y = y;
+                    
+                    lineGroup.add(latitudeLine);
+                    
+                    // Create a mirrored circle for the bottom half
+                    if (i > 0) {
+                        const bottomLatitudeLine = new THREE.LineSegments(
+                            new THREE.EdgesGeometry(new THREE.CircleGeometry(radius, 64)),
+                            new THREE.LineBasicMaterial({ color: 0x2980b9, transparent: true, opacity: 0.15 })
+                        );
+                        
+                        bottomLatitudeLine.rotation.x = Math.PI / 2;
+                        bottomLatitudeLine.position.y = -y;
+                        
+                        lineGroup.add(bottomLatitudeLine);
+                    }
+                }
+                
+                return lineGroup;
+            };
+            
+            const globeLines = createGlobeLines();
+            scene.add(globeLines);
+            
+            // Add equator highlight - changed from green to subtle blue to match theme
+            const equatorGeometry = new THREE.TorusGeometry(350, 1, 16, 100);
+            const equatorMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0x3498db, // Changed from 0x64ffda (green) to 0x3498db (blue)
+                transparent: true,
+                opacity: 0.5
+            });
+            const equator = new THREE.Mesh(equatorGeometry, equatorMaterial);
+            equator.rotation.x = Math.PI / 2;
+            scene.add(equator);
+            
+            // Add atmospheric glow effect
+            const atmosphereGeometry = new THREE.SphereGeometry(355, 64, 64);
+            const atmosphereMaterial = new THREE.ShaderMaterial({
+                uniforms: {},
+                vertexShader: `
+                    varying vec3 vNormal;
+                    void main() {
+                        vNormal = normalize(normalMatrix * normal);
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vNormal;
+                    void main() {
+                        float intensity = pow(0.7 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 4.0);
+                        gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
+                    }
+                `,
+                side: THREE.BackSide,
+                blending: THREE.AdditiveBlending,
+                transparent: true
+            });
+            
+            const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+            scene.add(atmosphere);
+            
+            // Add subtle points on the globe surface
+            const pointsGeometry = new THREE.BufferGeometry();
+            const pointCount = 300;
+            const positions = new Float32Array(pointCount * 3);
+            const sizes = new Float32Array(pointCount);
+            const colors = new Float32Array(pointCount * 3);
+            
+            for (let i = 0; i < pointCount; i++) {
+                // Random points on sphere
+                const phi = Math.acos(-1 + (2 * Math.random()));
+                const theta = 2 * Math.PI * Math.random();
+                
+                const x = 350 * Math.sin(phi) * Math.cos(theta);
+                const y = 350 * Math.sin(phi) * Math.sin(theta);
+                const z = 350 * Math.cos(phi);
+                
+                positions[i * 3] = x;
+                positions[i * 3 + 1] = y;
+                positions[i * 3 + 2] = z;
+                
+                // Random sizes
+                sizes[i] = Math.random() * 2;
+                
+                // Colors (blue to cyan)
+                colors[i * 3] = 0.1 + Math.random() * 0.2;        // R
+                colors[i * 3 + 1] = 0.5 + Math.random() * 0.3;    // G
+                colors[i * 3 + 2] = 0.8 + Math.random() * 0.2;    // B
+            }
+            
+            pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            pointsGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            pointsGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            
+            const pointsMaterial = new THREE.PointsMaterial({
+                size: 2,
+                sizeAttenuation: true,
+                transparent: true,
+                opacity: 0.8,
+                vertexColors: true
+            });
+            
+            const points = new THREE.Points(pointsGeometry, pointsMaterial);
+            scene.add(points);
+            
+            // Add directional grid lines but more subtle
+            const gridHelper = new THREE.GridHelper(1000, 20, 0x1a5fa4, 0x1a5fa4);
+            gridHelper.position.y = -400;
+            gridHelper.material.transparent = true;
+            gridHelper.material.opacity = 0.05;
+            scene.add(gridHelper);
+            
+            // Handle resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            
+            // Initial zoom level - starts further out
+            let targetZ = 800;
+            let currentZ = 800;
+            
+            // Scroll listener for zoom
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const scrollMax = document.body.scrollHeight - windowHeight;
+                const scrollPercentage = Math.min(scrollPosition / (windowHeight * 0.8), 1);
+                
+                // Calculate zoom level based on scroll
+                // Start at 800 (far), zoom to 500 (closer)
+                targetZ = 800 - (scrollPercentage * 300);
+                
+                // Calculate rotation based on scroll - more rotation as you scroll
+                const rotationSpeed = 0.0005 + (scrollPercentage * 0.001);
+                earth.rotation.y += rotationSpeed;
+                globeLines.rotation.y += rotationSpeed;
+                equator.rotation.y += rotationSpeed;
+                points.rotation.y += rotationSpeed;
+            });
+            
+            // Main animation loop
+            const animate = () => {
+                requestAnimationFrame(animate);
+                
+                // Smooth camera zoom
+                currentZ += (targetZ - currentZ) * 0.05;
+                camera.position.z = currentZ;
+                
+                // Constant slow rotation
+                earth.rotation.y += 0.0005;
+                globeLines.rotation.y += 0.0005;
+                equator.rotation.y += 0.0005;
+                atmosphere.rotation.y += 0.0005;
+                points.rotation.y += 0.0005;
+                
+                // Subtle floating motion
+                const time = Date.now() * 0.0003;
+                const yOffset = Math.sin(time) * 8;
+                earth.position.y = yOffset;
+                globeLines.position.y = yOffset;
+                equator.position.y = yOffset;
+                atmosphere.position.y = yOffset;
+                points.position.y = yOffset;
+                glow.position.y = yOffset;
+                
+                // Pulse glow effect
+                const pulseScale = 1 + 0.02 * Math.sin(time * 2);
+                atmosphere.scale.set(pulseScale, pulseScale, pulseScale);
+                
+                renderer.render(scene, camera);
+            };
+            
+            animate();
+        };
+        
+        // Initialize the globe when the page loads
+        window.addEventListener('load', initGlobe);
+    </script>
+</body>
+</html>
