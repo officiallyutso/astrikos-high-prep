@@ -1,0 +1,279 @@
+        /* Basic reset */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+      
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: #f5f5f5;
+          background-color: #121212;
+          line-height: 1.6;
+          overflow-x: hidden;
+      }
+      
+      /* Globe container */
+      #globe-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+      }
+      
+      .container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+      }
+      
+      /* Header and navigation */
+      header {
+          padding: 20px 0;
+          background-color: rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(10px);
+          position: sticky;
+          top: 0;
+          z-index: 100;
+      }
+      
+      nav {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+      
+      .logo {
+          display: flex;
+          align-items: center;
+          color: #f5f5f5;
+          text-decoration: none;
+          font-size: 1.5rem;
+          font-weight: 600;
+      }
+      
+      .logo svg {
+          margin-right: 8px;
+          stroke: #3498db;
+      }
+      
+      .nav-links {
+          display: flex;
+          gap: 24px;
+      }
+      
+      .nav-links a {
+          color: #f5f5f5;
+          text-decoration: none;
+          position: relative;
+          padding-bottom: 5px;
+      }
+      
+      .nav-links a::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: #3498db;
+          transition: width 0.3s ease;
+      }
+      
+      .nav-links a:hover::after {
+          width: 100%;
+      }
+      
+      .user-icon {
+          background-color: rgba(52, 152, 219, 0.2);
+          border-radius: 50%;
+          padding: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+      
+      .user-icon:hover {
+          background-color: rgba(52, 152, 219, 0.4);
+      }
+      
+      .user-icon svg {
+          stroke: #3498db;
+      }
+      
+      /* Main content */
+      main {
+          min-height: 100vh;
+          position: relative;
+          z-index: 1;
+      }
+      
+      /* Hero section */
+      .hero {
+          height: 90vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 0 20px;
+      }
+      
+      .hero-content {
+          max-width: 700px;
+      }
+      
+      h1 {
+          font-size: 3rem;
+          margin-bottom: 20px;
+          background: linear-gradient(90deg, #3498db, #64b5f6);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-weight: 700;
+      }
+      
+      .hero p {
+          font-size: 1.2rem;
+          margin-bottom: 30px;
+          opacity: 0.9;
+      }
+      
+      .cta-button {
+          display: inline-flex;
+          align-items: center;
+          background: linear-gradient(90deg, #3498db, #64b5f6);
+          color: #fff;
+          padding: 12px 24px;
+          border-radius: 30px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .cta-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+      }
+      
+      .cta-button svg {
+          margin-left: 8px;
+      }
+      
+      /* City preview section */
+      .city-preview {
+          padding: 80px 0;
+          background-color: rgba(10, 15, 30, 0.7);
+          backdrop-filter: blur(10px);
+      }
+      
+      h2 {
+          font-size: 2.2rem;
+          margin-bottom: 40px;
+          text-align: center;
+          color: #f5f5f5;
+      }
+      
+      .city-model {
+          position: relative;
+          max-width: 800px;
+          margin: 0 auto;
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+          border-radius: 15px;
+          overflow: hidden;
+      }
+      
+      .city-model img {
+          width: 100%;
+          display: block;
+          border-radius: 15px;
+      }
+      
+      .toolbox {
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          display: flex;
+          gap: 10px;
+      }
+      
+      .tool-button {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(10px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+      
+      .tool-button:hover {
+          background-color: rgba(52, 152, 219, 0.6);
+      }
+      
+      .tool-button svg {
+          stroke: #f5f5f5;
+      }
+      
+      /* Feature cards */
+      .feature-cards {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 30px;
+          padding: 80px 0;
+      }
+      
+      .feature-card {
+          background-color: rgba(26, 30, 44, 0.7);
+          backdrop-filter: blur(10px);
+          padding: 30px;
+          border-radius: 15px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .feature-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+      
+      .feature-icon {
+          width: 60px;
+          height: 60px;
+          background-color: rgba(52, 152, 219, 0.2);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+      }
+      
+      .feature-icon svg {
+          stroke: #3498db;
+      }
+      
+      h3 {
+          font-size: 1.5rem;
+          margin-bottom: 15px;
+      }
+      
+      /* Media queries for responsiveness */
+      @media (max-width: 768px) {
+          .nav-links {
+              display: none;
+          }
+          
+          h1 {
+              font-size: 2.5rem;
+          }
+          
+          .feature-cards {
+              grid-template-columns: 1fr;
+          }
+      }
