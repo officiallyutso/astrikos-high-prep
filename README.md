@@ -225,75 +225,85 @@ flowchart LR
     F --> G[(Firestore Database)]
 ```
 
-## Installation Guide
+#Installation
 
-### Prerequisites
+## Prerequisites
 
-1. **System Requirements**
-   - Node.js v18+
-   - npm v9+
-   - Python 3.10+ (for some data processing)
-   - MongoDB 6.0+
-   - Redis 7.0+
+Before you begin, ensure you have the following installed on your system:
 
-2. **Development Environment Setup**
+- Node.js (v18 or higher)
+- npm (v9 or higher)
+- Git
+- A modern web browser (Chrome, Firefox, or Edge recommended)
+
+## Project Setup
+
+### 1. Clone the Repository
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/astrikos-ai.git
-cd astrikos-ai
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env
+git clone https://github.com/officiallyutso/astrikos-high-prep.git
+cd astrikos-high-prep
 ```
 
-### Backend Setup
+### 2. Install Dependencies
 
 ```bash
-# Navigate to server directory
-cd server
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Start the server
-npm run start:dev
+npm install
 ```
 
-### Frontend Setup
+This will install all required JavaScript packages including:
+- React and related dependencies
+- Three.js and visualization libraries
+- CesiumJS and mapping components
+- Firebase SDK
+
+## Running the Application
+
+### 1. Start the Development Server
 
 ```bash
-# Navigate to client directory
-cd client
-
-# Install dependencies
-npm install
-
-# Start development server
 npm run dev
 ```
 
-### Docker Deployment
+This will:
+- Start Vite development server
+- Bundle all React components
+- Launch the application in your default browser at `http://localhost:5173`
 
-```dockerfile
-# Sample Dockerfile for backend
-FROM node:18-alpine
+### 2. Running Unity WebGL Content
 
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
+The Unity WebGL build is located in `public/create/`. To view it:
 
-EXPOSE 3000
-CMD ["npm", "start"]
+1. **Option A: Using Python Simple Server** (recommended for testing)
+   ```bash
+   cd public/create
+   python -m http.server 8000
+   ```
+   Then open `http://localhost:8000/editor.html` in your browser
+
+2. **Option B: Using Live Server Extension** (in VS Code)
+   - Right-click on `editor.html`
+   - Select "Open with Live Server"
+
+## Project Structure
+
 ```
-
-```bash
-# Build and run containers
-docker-compose up --build
+astrikos-high-prep/
+├── public/                  # Static assets
+│   └── create/              # Unity WebGL build
+│       ├── Build/           # Unity compiled files
+│       ├── TemplateData/     # Unity resources
+│       └── editor.html      # Unity loader page
+├── src/                     # React application
+│   ├── assets/              # Static assets
+│   ├── components/          # React components
+│   ├── pages/               # Application pages
+│   ├── services/            # Data services
+│   └── styles/              # CSS files
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
 ```
 
 ## Configuration
@@ -302,10 +312,9 @@ docker-compose up --build
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `MONGO_URI` | MongoDB connection string | `mongodb://localhost:27017/astrikos` |
 | `MAPBOX_TOKEN` | Mapbox access token | `pk.abc123...` |
 | `FIREBASE_CONFIG` | Firebase configuration | JSON string |
-| `REDIS_URL` | Redis connection URL | `redis://localhost:6379` |
+| `CEASIUM_TOKEN` | CEASIUM TOKEN | `eyJhbGciO...` |
 
 ### Configuration Files
 
