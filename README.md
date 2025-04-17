@@ -27,7 +27,7 @@
 
 ## Project Overview
 
-Astrikos.AI is an advanced visualization platform designed to transform how cities, industries, and enterprises manage infrastructure challenges. Our solution combines cutting-edge 3D visualization with real-time data analytics to provide actionable insights for urban planning, emergency management, and logistics optimization.
+This project is an advanced visualization platform designed to transform how cities, industries, and enterprises manage infrastructure challenges. Our solution combines cutting-edge 3D visualization with real-time data analytics to provide actionable insights for urban planning, emergency management, and logistics optimization.
 
 ### Problem Statement
 
