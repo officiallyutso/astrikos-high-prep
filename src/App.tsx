@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Visualization from './pages/Visualization';
+import CityInvestment from './pages/CityInvestment';
 
 function App() {
   return (
@@ -24,6 +25,11 @@ function App() {
           <Route path="/visualization" element={
             <ProtectedRoute>
               <Visualization />
+            </ProtectedRoute>
+          } />
+          <Route path="/city-investment" element={
+            <ProtectedRoute>
+              <CityInvestment />
             </ProtectedRoute>
           } />
         </Routes>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, ZoomControl } from 'react-leaflet';
+import { Link } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { getWorldCities, CityData } from '../services/dataService';
@@ -97,7 +98,7 @@ const HeatLayer: React.FC<{ data: any[], intensity: number, radius: number, visi
         const opacity = intensity * normalizedValue;
         
         const circle = L.circle([point.lat, point.lng], {
-          radius: circleRadius * 5000, // Scale up for visibility
+          radius: circleRadius * 2000, // Scale up for visibility
           fillColor: getColorForValue(normalizedValue),
           fillOpacity: opacity,
           stroke: false
@@ -247,7 +248,7 @@ const Visualization: React.FC = () => {
   const getLayerSettings = () => {
     switch (activeLayer) {
       case 'population':
-        return { intensity: 0.8, radius: 20 };
+        return { intensity: 0.9, radius: 95 };
       case 'traffic':
         return { intensity: 0.7, radius: 25 };
       case 'temperature':
@@ -359,6 +360,13 @@ const Visualization: React.FC = () => {
               </button>
             )}
           </div>
+          
+          <Link to="/city-investment" className="city-analysis-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/>
+            </svg>
+            City Investment Analysis
+          </Link>
           
           {showSearch && filteredCities.length > 0 && (
             <div className="search-results">
