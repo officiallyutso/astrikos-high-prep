@@ -1,24 +1,501 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visualize</title>
-  <link rel="stylesheet" href="#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrikos - Data Visualization</title>
+    <link rel="stylesheet" href="visualize.css">
 </head>
-<body>  
-  <style>
-    body {
-      background-color: #121212;
-    }
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-circle">A</div>
+            <span>Astrikos</span>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">Analytics</a>
+            <a href="#" class="active">Visualize</a>
+            <a href="#">Demo</a>
+        </nav>
+        <div class="header-right">
+            <div class="notification-bell">🔔</div>
+            <div class="user-avatar"></div>
+        </div>
+    </header>
 
-    .container {
-      color: blue;
-      display: flex;
-      height: 100vh;
+    <div class="container">
+        <aside class="sidebar">
+            <a href="#" class="sidebar-item" onclick="showModule('weatherModule')">
+                <i>☁️</i>
+                <span>Weather</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="showModule('trafficModule')">
+                <i>📋</i>
+                <span>Traffic</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="showModule('populationModule')">
+                <i>👥</i>
+                <span>Population</span>
+            </a>
+            <a href="#" class="sidebar-item active" onclick="showModule('temperatureModule')">
+                <i>🌡️</i>
+                <span>Temperature</span>
+            </a>
+        </aside>
+
+        <main class="main-content">
+
+            <!-- Weather Module -->
+<div id="weatherModule">
+    <div class="controls-panel">
+        <div class="control-section">
+            <h3>Zoom Controls</h3>
+            <div class="zoom-buttons">
+                <div class="zoom-btn">+</div>
+                <div class="zoom-btn">−</div>
+            </div>
+            <p class="zoom-display">Current zoom: 1.00x</p>
+        </div>
+        <div class="control-section">
+            <h3>Selection Tool</h3>
+            <div class="selection-tool">
+                <i>⊕</i>
+                <span>Select Region</span>
+            </div>
+        </div>
+        <div class="control-section">
+            <h3>Weather Legend</h3>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--yellow);"></div>
+                <span>Sunny</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--gray);"></div>
+                <span>Cloudy</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--blue-medium);"></div>
+                <span>Rainy</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--teal);"></div>
+                <span>Windy</span>
+            </div>
+        </div>
+        <div class="control-section">
+            <h3>Temperature Range</h3>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--blue-light);"></div>
+                <span>Below 15°C</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--green);"></div>
+                <span>15-25°C</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--red);"></div>
+                <span>Above 25°C</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <h3>Region: New York City</h3>
+        <div class="info-row">
+            <span class="info-label">Temperature:</span>
+            <span>24°C</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Humidity:</span>
+            <span>65%</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Wind:</span>
+            <span>8 km/h</span>
+        </div>
+        <div class="info-tag" style="background-color: var(--yellow);">Sunny</div>
+    </div>
+
+    <div class="visualization-area">
+        <div class="visualize-header">
+            <h2>Weather Analysis</h2>
+            <select class="dropdown-select">
+                <option>New York City</option>
+                <option>Los Angeles</option>
+                <option>Chicago</option>
+                <option>Miami</option>
+            </select>
+        </div>
+
+        <div class="tab-container">
+            <div class="tab active">
+                <i>💨</i>
+                <span>Wind Speed</span>
+            </div>
+            <div class="tab">
+                <i>💧</i>
+                <span>Humidity</span>
+            </div>
+        </div>
+
+        <p class="time-range">Time Range: 7 days</p>
+        <div class="slider-container">
+            <span class="slider-label">7 days</span>
+            <input type="range" min="7" max="30" value="7" class="slider" id="weatherRange">
+            <span class="slider-label">30 days</span>
+        </div>
+
+        <div class="visualization-card wind-chart">
+            <h3>Wind Speed (7 days)</h3>
+            <div class="time-slots">
+                <div class="time-slot">
+                    <div class="time">6AM</div>
+                    <div class="value">5 km/h</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time">12PM</div>
+                    <div class="value">8 km/h</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time">6PM</div>
+                    <div class="value">6 km/h</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>Daily Forecast</h3>
+        <div class="forecast-cards">
+            <div class="forecast-card">
+                <h4>Today</h4>
+                <div class="weather-icon sunny">☀️</div>
+                <div class="forecast-temp">24°C</div>
+            </div>
+            <div class="forecast-card">
+                <h4>Tomorrow</h4>
+                <div class="weather-icon cloudy">☁️</div>
+                <div class="forecast-temp">22°C</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Temperature Module -->
+            <div id="temperatureModule">
+                <div class="controls-panel">
+                    <div class="control-section">
+                        <h3>Zoom Controls</h3>
+                        <div class="zoom-buttons">
+                            <div class="zoom-btn">+</div>
+                            <div class="zoom-btn">−</div>
+                        </div>
+                    </div>
+                    <div class="control-section">
+                        <h3>Selection Tool</h3>
+                        <div class="selection-tool">
+                            <i>⊕</i>
+                            <span>Select Area</span>
+                        </div>
+                    </div>
+                    <div class="control-section">
+                        <h3>Temperature Legend</h3>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--blue-light);"></div>
+                            <span>Cool</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--yellow);"></div>
+                            <span>Moderate</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--red);"></div>
+                            <span>Hot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>New York City</h3>
+                    <div class="info-row">
+                        <span class="info-label">Current:</span>
+                        <span>22°C</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Feels Like:</span>
+                        <span>24°C</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">High/Low:</span>
+                        <span>26°C/18°C</span>
+                    </div>
+                    <div class="info-tag" style="background-color: var(--yellow);">Moderate</div>
+                </div>
+
+                <div class="visualization-area">
+                    <div class="visualize-header">
+                        <h2>Temperature Trend</h2>
+                        <div class="toggle-unit">
+                            <div class="unit-btn active">°C</div>
+                            <div class="unit-btn">°F</div>
+                        </div>
+                    </div>
+
+                    <div class="visualization-card">
+                        Line Chart Placeholder
+                    </div>
+
+                    <h3>Date Range: 7 days</h3>
+                    <div class="slider-container">
+                        <span class="slider-label">7 days</span>
+                        <input type="range" min="7" max="30" value="7" class="slider" id="dateRange">
+                        <span class="slider-label">30 days</span>
+                    </div>
+
+                    <button class="export-btn">
+                        <span>⬇️</span>
+                        <span>Export Chart</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Population Module -->
+            <div id="populationModule">
+                <div class="controls-panel">
+                    <div class="control-section">
+                        <h3>Zoom Controls</h3>
+                        <div class="zoom-buttons">
+                            <div class="zoom-btn">+</div>
+                            <div class="zoom-btn">−</div>
+                        </div>
+                    </div>
+                    <div class="control-section">
+                        <h3>Selection Tool</h3>
+                        <div class="selection-tool">
+                            <i>✓</i>
+                            <span>Select</span>
+                        </div>
+                    </div>
+                    <div class="control-section">
+                        <h3>Density Legend</h3>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--blue-light);"></div>
+                            <span>Low</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--blue-medium);"></div>
+                            <span>Medium</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--blue-dark);"></div>
+                            <span>High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Region: New York</h3>
+                    <div class="info-row">
+                        <span class="info-label">Population:</span>
+                        <span>8.4M</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Density:</span>
+                        <span>27,012/km²</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Growth Rate:</span>
+                        <span>0.8%</span>
+                    </div>
+                    <div class="info-tag" style="background-color: var(--blue-dark);">High Density</div>
+                </div>
+
+                <div class="visualization-area">
+                    <div class="visualize-header">
+                        <h2>Population Distribution</h2>
+                        <select class="dropdown-select">
+                            <option>Select...</option>
+                            <option>By Age</option>
+                            <option>By Gender</option>
+                            <option>By Income</option>
+                        </select>
+                    </div>
+
+                    <div class="visualization-card">
+                        Pie Chart
+                    </div>
+
+                    <h2>Population Growth</h2>
+                    <div class="visualization-card">
+                        Line Chart
+                    </div>
+
+                    <button class="export-btn">
+                        <span>⬇️</span>
+                        <span>Export Data</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Traffic Module -->
+            <div id="trafficModule">
+                <div class="controls-panel">
+                    <div class="control-section">
+                        <h3>Zoom Controls</h3>
+                        <div class="zoom-buttons">
+                            <div class="zoom-btn">+</div>
+                            <div class="zoom-btn">−</div>
+                        </div>
+                    </div>
+                    <div class="control-section">
+                        <h3>Selection Tool</h3>
+                        <div class="selection-tool">
+                            <i>∥</i>
+                            <span>Select Road</span>
+                        </div>
+                    </div>
+                    <div class="control-section">
+                        <h3>Traffic Legend</h3>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--green);"></div>
+                            <span>Low Traffic</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--yellow);"></div>
+                            <span>Moderate Traffic</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--red);"></div>
+                            <span>Heavy Traffic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Main Street</h3>
+                    <div class="info-row">
+                        <span class="info-label">Average Speed:</span>
+                        <span>45 km/h</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Congestion:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Change:</span>
+                        <span>+5% from yesterday</span>
+                    </div>
+                </div>
+
+                <div class="visualization-area">
+                    <div class="visualize-header">
+                        <h2>Traffic Analysis</h2>
+                        <select class="dropdown-select">
+                            <option>Last 24 Hours</option>
+                            <option>Last Week</option>
+                            <option>Last Month</option>
+                        </select>
+                    </div>
+
+                    <h3>Most Congested Roads</h3>
+                    <div class="progress-bars">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%;"></div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 70%;"></div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 55%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="visualization-card">
+                        Hourly Trend Chart
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+
+
+function showModule(moduleId) {
+
+    document.getElementById('temperatureModule').style.display = 'none';
+    document.getElementById('populationModule').style.display = 'none';
+    document.getElementById('trafficModule').style.display = 'none';
+    document.getElementById('weatherModule').style.display = 'none';
+    
+    document.getElementById(moduleId).style.display = 'flex';
+    
+
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    sidebarItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('onclick').includes(moduleId)) {
+            item.classList.add('active');
+        }
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    const weatherSlider = document.getElementById('weatherRange');
+    if (weatherSlider) {
+        weatherSlider.addEventListener('input', function() {
+            document.querySelector('.time-range').textContent = `Time Range: ${this.value} days`;
+            document.querySelector('.wind-chart h3').textContent = `Wind Speed (${this.value} days)`;
+        });
     }
-    </style>
-       <div class="container">
-        <a>Visualization</a>
+    
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
+        function showModule(moduleId) {
+    
+            document.getElementById('temperatureModule').style.display = 'none';
+            document.getElementById('populationModule').style.display = 'none';
+            document.getElementById('trafficModule').style.display = 'none';
+            
+
+            document.getElementById(moduleId).style.display = 'flex';
+            
+    
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('onclick').includes(moduleId)) {
+                    item.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize temperature slider
+        const slider = document.getElementById('dateRange');
+        slider.addEventListener('input', function() {
+            // Update date range display
+            document.querySelector('h3').textContent = `Date Range: ${this.value} days`;
+        });
+        
+        // Temperature unit toggle
+        const unitBtns = document.querySelectorAll('.unit-btn');
+        unitBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                unitBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
