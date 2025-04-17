@@ -45,6 +45,141 @@
         </aside>
 
         <main class="main-content">
+
+            <!-- Weather Module -->
+<div id="weatherModule">
+    <div class="controls-panel">
+        <div class="control-section">
+            <h3>Zoom Controls</h3>
+            <div class="zoom-buttons">
+                <div class="zoom-btn">+</div>
+                <div class="zoom-btn">−</div>
+            </div>
+            <p class="zoom-display">Current zoom: 1.00x</p>
+        </div>
+        <div class="control-section">
+            <h3>Selection Tool</h3>
+            <div class="selection-tool">
+                <i>⊕</i>
+                <span>Select Region</span>
+            </div>
+        </div>
+        <div class="control-section">
+            <h3>Weather Legend</h3>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--yellow);"></div>
+                <span>Sunny</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--gray);"></div>
+                <span>Cloudy</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--blue-medium);"></div>
+                <span>Rainy</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--teal);"></div>
+                <span>Windy</span>
+            </div>
+        </div>
+        <div class="control-section">
+            <h3>Temperature Range</h3>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--blue-light);"></div>
+                <span>Below 15°C</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--green);"></div>
+                <span>15-25°C</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--red);"></div>
+                <span>Above 25°C</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <h3>Region: New York City</h3>
+        <div class="info-row">
+            <span class="info-label">Temperature:</span>
+            <span>24°C</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Humidity:</span>
+            <span>65%</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Wind:</span>
+            <span>8 km/h</span>
+        </div>
+        <div class="info-tag" style="background-color: var(--yellow);">Sunny</div>
+    </div>
+
+    <div class="visualization-area">
+        <div class="visualize-header">
+            <h2>Weather Analysis</h2>
+            <select class="dropdown-select">
+                <option>New York City</option>
+                <option>Los Angeles</option>
+                <option>Chicago</option>
+                <option>Miami</option>
+            </select>
+        </div>
+
+        <div class="tab-container">
+            <div class="tab active">
+                <i>💨</i>
+                <span>Wind Speed</span>
+            </div>
+            <div class="tab">
+                <i>💧</i>
+                <span>Humidity</span>
+            </div>
+        </div>
+
+        <p class="time-range">Time Range: 7 days</p>
+        <div class="slider-container">
+            <span class="slider-label">7 days</span>
+            <input type="range" min="7" max="30" value="7" class="slider" id="weatherRange">
+            <span class="slider-label">30 days</span>
+        </div>
+
+        <div class="visualization-card wind-chart">
+            <h3>Wind Speed (7 days)</h3>
+            <div class="time-slots">
+                <div class="time-slot">
+                    <div class="time">6AM</div>
+                    <div class="value">5 km/h</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time">12PM</div>
+                    <div class="value">8 km/h</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time">6PM</div>
+                    <div class="value">6 km/h</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>Daily Forecast</h3>
+        <div class="forecast-cards">
+            <div class="forecast-card">
+                <h4>Today</h4>
+                <div class="weather-icon sunny">☀️</div>
+                <div class="forecast-temp">24°C</div>
+            </div>
+            <div class="forecast-card">
+                <h4>Tomorrow</h4>
+                <div class="weather-icon cloudy">☁️</div>
+                <div class="forecast-temp">22°C</div>
+            </div>
+        </div>
+    </div>
+</div>
+
             <!-- Temperature Module -->
             <div id="temperatureModule">
                 <div class="controls-panel">
@@ -286,6 +421,50 @@
     </div>
 
     <script>
+
+        // Add this to your existing JavaScript
+
+// Update your showModule function to include weatherModule
+function showModule(moduleId) {
+    // Hide all modules
+    document.getElementById('temperatureModule').style.display = 'none';
+    document.getElementById('populationModule').style.display = 'none';
+    document.getElementById('trafficModule').style.display = 'none';
+    document.getElementById('weatherModule').style.display = 'none';
+    
+    // Show selected module
+    document.getElementById(moduleId).style.display = 'flex';
+    
+    // Update sidebar active state
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    sidebarItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('onclick').includes(moduleId)) {
+            item.classList.add('active');
+        }
+    });
+}
+
+// Add these event listeners when the document loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Weather range slider
+    const weatherSlider = document.getElementById('weatherRange');
+    if (weatherSlider) {
+        weatherSlider.addEventListener('input', function() {
+            document.querySelector('.time-range').textContent = `Time Range: ${this.value} days`;
+            document.querySelector('.wind-chart h3').textContent = `Wind Speed (${this.value} days)`;
+        });
+    }
+    
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
         function showModule(moduleId) {
             // Hide all modules
             document.getElementById('temperatureModule').style.display = 'none';

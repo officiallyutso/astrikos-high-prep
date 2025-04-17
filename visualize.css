@@ -447,3 +447,100 @@ header {
         padding-top: 120px;
     }
 }
+/* Add these styles to your existing CSS file */
+.zoom-display {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.tab-container {
+    display: flex;
+    margin-bottom: 20px;
+    background-color: var(--background-card);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tab {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+    border-bottom: 3px solid var(--primary-blue);
+    background-color: rgba(0, 132, 255, 0.1);
+}
+
+.tab i {
+    font-size: 1.2rem;
+}
+
+.time-range {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.wind-chart {
+    padding: 20px;
+    position: relative;
+}
+
+.time-slots {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 70px;
+}
+
+.time-slot {
+    text-align: center;
+}
+
+.time {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.value {
+    color: var(--text-muted);
+}
+
+.forecast-cards {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.forecast-card {
+    background-color: var(--background-card);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+}
+
+.forecast-card h4 {
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.weather-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.forecast-temp {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+#weatherModule {
+    display: none;
+    flex: 1;
+}
