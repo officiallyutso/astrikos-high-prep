@@ -73,6 +73,9 @@ pie
    - Annotation and markup tools
    - Scenario simulation
 
+
+
+
 ### Technical Specifications
 
 ```mermaid
@@ -166,6 +169,37 @@ graph TD
 | `react-icons` | ^5.5.0 | Icon library |
 | `react-modal` | ^3.16.3 | Accessible modal dialogs |
 | `axios` | ^1.8.4 | HTTP client |
+
+
+## Porject Images
+
+| Feature | Screenshot | Description |
+|--------|------------|-------------|
+| **Home Page** | ![Home](https://github.com/user-attachments/assets/79669922-62a4-4d7a-9c29-15f35842769d) | The landing page showcasing a clean, minimal interface with navigation and call-to-action to log in or sign up. |
+| **Login Page** | ![Login](https://github.com/user-attachments/assets/0911a33a-74f9-4956-92e7-69bc91c836c9) | Simple login form with email and password inputs, styled with modern UI components. |
+| **Signup Page** | ![Signup](https://github.com/user-attachments/assets/a81f8db2-c04e-4dd4-864a-4776b6e97469) | User registration screen with multiple fields and an intuitive layout. |
+| **Dashboard** | ![Dashboard1](https://github.com/user-attachments/assets/ea9b3711-de58-4432-be73-b20741de577c) | Main dashboard view with navigation to different modules. |
+|  | ![Dashboard2](https://github.com/user-attachments/assets/4294c59c-635c-4494-b2e8-7a6bbbc34893) | Clean and interactive section-based dashboard UI. |
+|  | ![Dashboard3](https://github.com/user-attachments/assets/e0c3d169-93d1-461f-990b-855c3d5508b9) | Dark-themed variation of the dashboard view with integrated widgets. |
+| **Visualization** | ![Visualization1](https://github.com/user-attachments/assets/040a7221-c421-4670-a222-4c0a2d50967e) | Real-time data visualization dashboard using 2D/3D map overlays. |
+|  | ![Visualization2](https://github.com/user-attachments/assets/8abe6219-ef69-49e2-9df7-43c4860fd6c2) | Zoomed-in view with multiple data points plotted on city infrastructure. |
+| **Custom Data** | ![CustomData1](https://github.com/user-attachments/assets/f39b3692-ff0c-4d1f-8693-2af83dcec2ed) | User-uploaded custom data layers, visualized over a 3D model. |
+|  | ![CustomData2](https://github.com/user-attachments/assets/6d52e5b4-902c-48c9-8e6c-09cecac91990) | Data input interface with file upload and live preview features. |
+| **City Analysis** | ![CityAnalysis1](https://github.com/user-attachments/assets/159f3daf-a39a-4b26-bc45-ba44b4268f7c) | City-wise infrastructure analysis with statistical charts and mapping. |
+|  | ![CityAnalysis2](https://github.com/user-attachments/assets/3f199d2e-5cc6-4da8-963f-e6ae038bc0fa) | An alternate layout showing categorized city insights and KPIs. |
+| **View Mode** | ![ViewMode1](https://github.com/user-attachments/assets/b3b2f028-c361-4e13-8dcd-6ac6baeb61a5) | Switch between 2D and 3D views dynamically using toggle buttons. |
+|  | ![ViewMode2](https://github.com/user-attachments/assets/fc42f705-5277-4784-ad07-238bd439d256) | Responsive map renderer for immersive infrastructure display. |
+|  | ![ViewMode3](https://github.com/user-attachments/assets/34dbd024-526c-4e31-a122-f1ec2da552a5) | Day-night toggle and camera controls for exploration. |
+|  | ![ViewMode4](https://github.com/user-attachments/assets/5828aed2-0064-415a-853f-b3495399842e) | Lighting and environmental effects showcased in 3D view. |
+| **Editor Mode** | ![EditorMode1](https://github.com/user-attachments/assets/b11b7d7b-110d-46e9-9abe-bf77cb716935) | 3D model editor with layer and object manipulation tools. |
+|  | ![EditorMode2](https://github.com/user-attachments/assets/3a09541d-87d2-4e98-a8df-cf21177dde6f) | Grid-aligned editor with structure positioning features. |
+| **Creator Mode** | ![CreatorMode](https://github.com/user-attachments/assets/52b7bc5a-6919-4492-ba1f-9c909a1ef273) | Creative workspace for designing infrastructure mockups and prototypes. |
+
+---
+
+
+
+
 
 
 
