@@ -422,20 +422,17 @@
 
     <script>
 
-        // Add this to your existing JavaScript
 
-// Update your showModule function to include weatherModule
 function showModule(moduleId) {
-    // Hide all modules
+
     document.getElementById('temperatureModule').style.display = 'none';
     document.getElementById('populationModule').style.display = 'none';
     document.getElementById('trafficModule').style.display = 'none';
     document.getElementById('weatherModule').style.display = 'none';
     
-    // Show selected module
     document.getElementById(moduleId).style.display = 'flex';
     
-    // Update sidebar active state
+
     const sidebarItems = document.querySelectorAll('.sidebar-item');
     sidebarItems.forEach(item => {
         item.classList.remove('active');
@@ -445,9 +442,9 @@ function showModule(moduleId) {
     });
 }
 
-// Add these event listeners when the document loads
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Weather range slider
+
     const weatherSlider = document.getElementById('weatherRange');
     if (weatherSlider) {
         weatherSlider.addEventListener('input', function() {
@@ -466,15 +463,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
         function showModule(moduleId) {
-            // Hide all modules
+    
             document.getElementById('temperatureModule').style.display = 'none';
             document.getElementById('populationModule').style.display = 'none';
             document.getElementById('trafficModule').style.display = 'none';
             
-            // Show selected module
+
             document.getElementById(moduleId).style.display = 'flex';
             
-            // Update sidebar active state
+    
             const sidebarItems = document.querySelectorAll('.sidebar-item');
             sidebarItems.forEach(item => {
                 item.classList.remove('active');
