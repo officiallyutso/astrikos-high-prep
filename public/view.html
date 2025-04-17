@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Fortran - Astrikos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.105.0/Cesium.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.105.0/Widgets/widgets.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        
+        #cesiumContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .map-title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 12px 20px;
+            background-color: rgba(30, 30, 30, 0.85);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            backdrop-filter: blur(5px);
+            border: 1px solid #333;
+        }
+        
+        .map-title h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #e0e0e0;
+        }
+        
+        .control-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: rgba(30, 30, 30, 0.85);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            z-index: 999;
+            backdrop-filter: blur(5px);
+            border: 1px solid #333;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .control-panel h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #e0e0e0;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #bbb;
+        }
+        
+        .control-group select, .control-group button {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #252525;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+        
+        .control-group button {
+            background-color: #1a5d9b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        
+        .control-group button:hover {
+            background-color: #2073b8;
+        }
+        
+        .location-item {
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            background-color: #252525;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: #e0e0e0;
+        }
+        
+        .location-item:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .search-bar {
+            margin-bottom: 15px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #252525;
+            color: #e0e0e0;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .search-bar input::placeholder {
+            color: #888;
+        }
+        
+        .cesium-viewer-bottom {
+            display: none;
+        }
+        
+        /* Customize Cesium widget for dark mode */
+        .cesium-widget-credits {
+            display: none;
+        }
+        
+        .cesium-viewer {
+            background-color: #000;
+        }
+        
+        /* Custom scrollbar for dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #222;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        .locations-category {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .locations-category h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    
+    <div class="map-title">
+        <h1>View Mode - Astrikos</h1>
+    </div>
+    
+    <div class="control-panel">
+        <h2>Map Controls</h2>
+        
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for a location...">
+        </div>
+        
+        <div class="control-group">
+            <label for="baseLayerPicker">Base Map</label>
+            <select id="baseLayerPicker">
+                <option value="earth">Earth</option>
+                <option value="dark">Dark Mode</option>
+                <option value="osm">OpenStreetMap</option>
+                <option value="bing">Bing Maps Aerial</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="viewMode">View Mode</label>
+            <select id="viewMode">
+                <option value="3d">3D View</option>
+                <option value="2d">2D View</option>
+                <option value="columbus">Columbus View</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label>Popular Locations</label>
+            
+            <div class="locations-category">
+                <h3>Indian Cities</h3>
+                <div class="location-item" data-lon="77.2090" data-lat="28.6139" data-height="1500">Delhi</div>
+                <div class="location-item" data-lon="72.8777" data-lat="19.0760" data-height="1500">Mumbai</div>
+                <div class="location-item" data-lon="77.5946" data-lat="12.9716" data-height="1500">Bengaluru</div>
+                <div class="location-item" data-lon="78.4867" data-lat="17.3850" data-height="1500">Hyderabad</div>
+                <div class="location-item" data-lon="80.2707" data-lat="13.0827" data-height="1500">Chennai</div>
+                <div class="location-item" data-lon="88.3639" data-lat="22.5726" data-height="1500">Kolkata</div>
+            </div>
+            
+            <div class="locations-category">
+                <h3>Global Cities</h3>
+                <div class="location-item" data-lon="-74.006" data-lat="40.7128" data-height="1500">New York City</div>
+                <div class="location-item" data-lon="2.3522" data-lat="48.8566" data-height="1500">Paris</div>
+                <div class="location-item" data-lon="139.6917" data-lat="35.6895" data-height="1500">Tokyo</div>
+                <div class="location-item" data-lon="144.9631" data-lat="-37.8136" data-height="1500">Melbourne</div>
+                <div class="location-item" data-lon="-0.1278" data-lat="51.5074" data-height="1500">London</div>
+                <div class="location-item" data-lon="116.4074" data-lat="39.9042" data-height="1500">Beijing</div>
+            </div>
+            
+            <div class="locations-category">
+                <h3>Natural Wonders</h3>
+                <div class="location-item" data-lon="-115.1398" data-lat="36.1699" data-height="10000">Grand Canyon</div>
+                <div class="location-item" data-lon="86.9250" data-lat="27.9881" data-height="10000">Mount Everest</div>
+                <div class="location-item" data-lon="37.6173" data-lat="-0.4557" data-height="7000">Mt. Kilimanjaro</div>
+                <div class="location-item" data-lon="-72.5450" data-lat="-13.1631" data-height="7000">Machu Picchu</div>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <button id="currentLocation">Go to My Location</button>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Cesium Access Token (use your own token in a real application)
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0Zjg1YTliNi04MzBjLTRmNTMtYmVmMy1iNTc0MGYxMzQ5ZTciLCJpZCI6MjkxOTk3LCJpYXQiOjE3NDQxMDY2ODF9.j9h3Zkpdu3nEvMQPJTzvje5Au7ri2Irlp5U7DfQOrIg';
+        
+        // Initialize the Cesium Viewer with dark mode settings
+        const viewer = new Cesium.Viewer('cesiumContainer', {
+            terrainProvider: Cesium.createWorldTerrain(),
+            animation: false,
+            baseLayerPicker: false,
+            fullscreenButton: false,
+            vrButton: false,
+            geocoder: false,
+            homeButton: false,
+            infoBox: false,
+            sceneModePicker: false,
+            selectionIndicator: false,
+            timeline: false,
+            navigationHelpButton: false,
+            scene3DOnly: false,
+            shouldAnimate: true,
+            contextOptions: {
+                webgl: {
+                    alpha: true,
+                }
+            }
+        });
+        
+        // Apply dark mode to the globe
+        viewer.scene.globe.baseColor = new Cesium.Color(0.0, 0.0, 0.0, 1.0);
+        viewer.scene.backgroundColor = new Cesium.Color(0.0, 0.0, 0.0, 1.0);
+        
+        // Add the Cesium OSM Buildings
+        const buildingTileset = viewer.scene.primitives.add(Cesium.createOsmBuildings());
+        
+        // Start with Earth imagery layer
+        const layers = viewer.imageryLayers;
+        layers.removeAll();
+        const earthLayer = layers.addImageryProvider(new Cesium.IonImageryProvider({ assetId: 3 }));
+        // You can still apply some slight adjustments for dark mode UI compatibility
+        earthLayer.brightness = 0.7;
+        earthLayer.contrast = 0.9;
+        
+        // Start with Delhi as the interesting location
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(77.2090, 28.6139, 4000),
+            orientation: {
+                heading: Cesium.Math.toRadians(20),
+                pitch: Cesium.Math.toRadians(-20),
+                roll: 0.0
+            }
+        });
+        
+        // Enable lighting based on the sun position
+        viewer.scene.globe.enableLighting = true;
+        
+        // Enable depth testing so things behind the terrain disappear
+        viewer.scene.globe.depthTestAgainstTerrain = true;
+        
+        // Set up atmosphere with darker settings
+        viewer.scene.skyAtmosphere.show = true;
+        viewer.scene.skyAtmosphere.hueShift = 0.0;
+        viewer.scene.skyAtmosphere.saturationShift = -0.2;
+        viewer.scene.skyAtmosphere.brightnessShift = -0.2;
+        viewer.scene.globe.showGroundAtmosphere = true;
+        
+        // Base layer switcher functionality
+        document.getElementById('baseLayerPicker').addEventListener('change', function(e) {
+            const layers = viewer.imageryLayers;
+            layers.removeAll();
+            
+            switch(e.target.value) {
+                case 'earth':
+                    const earthLayer = layers.addImageryProvider(new Cesium.IonImageryProvider({ assetId: 3 }));
+                    earthLayer.brightness = 0.7;
+                    earthLayer.contrast = 0.9;
+                    break;
+                case 'osm':
+                    const osmLayer = layers.addImageryProvider(new Cesium.OpenStreetMapImageryProvider({
+                        url: 'https://a.tile.openstreetmap.org/'
+                    }));
+                    osmLayer.brightness = 0.5;
+                    osmLayer.contrast = 0.8;
+                    osmLayer.saturation = 0.6;
+                    break;
+                case 'bing':
+                    const bingLayer = layers.addImageryProvider(new Cesium.IonImageryProvider({ assetId: 2 }));
+                    bingLayer.brightness = 0.6;
+                    bingLayer.contrast = 0.8;
+                    bingLayer.saturation = 0.7;
+                    break;
+                case 'dark':
+                    const darkLayer = layers.addImageryProvider(new Cesium.IonImageryProvider({ assetId: 3 }));
+                    // Apply a dark filter to the imagery
+                    darkLayer.brightness = 0.3;
+                    darkLayer.contrast = 0.7;
+                    darkLayer.saturation = 0.5;
+                    darkLayer.gamma = 1.5;
+                    break;
+            }
+        });
+        
+        // View mode switcher
+        document.getElementById('viewMode').addEventListener('change', function(e) {
+            switch(e.target.value) {
+                case '3d':
+                    viewer.scene.morphTo3D();
+                    break;
+                case '2d':
+                    viewer.scene.morphTo2D();
+                    break;
+                case 'columbus':
+                    viewer.scene.morphToColumbusView();
+                    break;
+            }
+        });
+        
+        // Location items click handler
+        document.querySelectorAll('.location-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const lon = parseFloat(this.getAttribute('data-lon'));
+                const lat = parseFloat(this.getAttribute('data-lat'));
+                const height = parseFloat(this.getAttribute('data-height'));
+                
+                viewer.camera.flyTo({
+                    destination: Cesium.Cartesian3.fromDegrees(lon, lat, height),
+                    orientation: {
+                        heading: Cesium.Math.toRadians(0),
+                        pitch: Cesium.Math.toRadians(-30),
+                        roll: 0.0
+                    }
+                });
+            });
+        });
+        
+        // Current location button
+        document.getElementById('currentLocation').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    viewer.camera.flyTo({
+                        destination: Cesium.Cartesian3.fromDegrees(
+                            position.coords.longitude, 
+                            position.coords.latitude, 
+                            1000
+                        ),
+                        orientation: {
+                            heading: Cesium.Math.toRadians(0),
+                            pitch: Cesium.Math.toRadians(-30),
+                            roll: 0.0
+                        }
+                    });
+                }, function(error) {
+                    console.error("Error getting current location: ", error);
+                    alert("Could not get your current location. Please check your browser permissions.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+        
+        // Enhanced search functionality
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchQuery = this.value;
+                
+                // In a real application, you would use a geocoding service here
+                // For this example, we'll search for predefined locations
+                const locations = {
+                    'new york': [-74.006, 40.7128, 1500],
+                    'paris': [2.3522, 48.8566, 1500],
+                    'tokyo': [139.6917, 35.6895, 1500],
+                    'london': [-0.1278, 51.5074, 1500],
+                    'sydney': [151.2093, -33.8688, 1500],
+                    'grand canyon': [-112.1121, 36.0544, 10000],
+                    'mount everest': [86.9250, 27.9881, 10000],
+                    'eiffel tower': [2.2945, 48.8584, 500],
+                    'great wall of china': [116.5704, 40.4319, 5000],
+                    // Indian cities
+                    'delhi': [77.2090, 28.6139, 1500],
+                    'mumbai': [72.8777, 19.0760, 1500],
+                    'bengaluru': [77.5946, 12.9716, 1500],
+                    'bangalore': [77.5946, 12.9716, 1500], // Alternative spelling
+                    'hyderabad': [78.4867, 17.3850, 1500],
+                    'chennai': [80.2707, 13.0827, 1500],
+                    'kolkata': [88.3639, 22.5726, 1500],
+                    'calcutta': [88.3639, 22.5726, 1500], // Alternative spelling
+                    // Additional cities
+                    'melbourne': [144.9631, -37.8136, 1500],
+                    'beijing': [116.4074, 39.9042, 1500],
+                    'machu picchu': [-72.5450, -13.1631, 7000],
+                    'kilimanjaro': [37.6173, -0.4557, 7000]
+                };
+                
+                const query = searchQuery.toLowerCase();
+                let found = false;
+                
+                for (const [name, coords] of Object.entries(locations)) {
+                    if (name.includes(query)) {
+                        viewer.camera.flyTo({
+                            destination: Cesium.Cartesian3.fromDegrees(coords[0], coords[1], coords[2]),
+                            orientation: {
+                                heading: Cesium.Math.toRadians(0),
+                                pitch: Cesium.Math.toRadians(-30),
+                                roll: 0.0
+                            }
+                        });
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found) {
+                    alert("Location not found in our database. Try a different search term.");
+                }
+            }
+        });
+        
+        // Add some visual enhancement to the globe
+        viewer.scene.globe.maximumScreenSpaceError = 2.0; // Higher quality terrain
+        viewer.shadows = true; // Enable shadows
+        
+        // Apply lighting based on current time
+        const today = new Date();
+        const daytime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0); // Set to noon for better visibility
+        const julianDate = Cesium.JulianDate.fromDate(daytime);
+        viewer.clock.currentTime = julianDate;
+        viewer.scene.globe.enableLighting = true;
+    </script>
+</body>
+</html>

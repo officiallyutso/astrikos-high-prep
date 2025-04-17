@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
+import View from './pages/View';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
@@ -26,6 +27,11 @@ function App() {
           <Route path="/visualization" element={
             <ProtectedRoute>
               <Visualization />
+            </ProtectedRoute>
+          } />
+          <Route path="/view" element={
+            <ProtectedRoute>
+              <View />
             </ProtectedRoute>
           } />
           <Route path="/city-investment" element={
