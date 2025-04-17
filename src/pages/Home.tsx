@@ -458,7 +458,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4>Phone</h4>
-                  <p>+1 (555) 123-4567</p>
+                  <p>+91 9332992332</p>
                 </div>
               </div>
               <div className="contact-info-item">
@@ -470,7 +470,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4>Email</h4>
-                  <p>info@astrikos.com</p>
+                  <p>utsosarkar1@gmail.com</p>
                 </div>
               </div>
               <div className="contact-info-item">
@@ -482,7 +482,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4>Location</h4>
-                  <p>123 Innovation Drive, San Francisco, CA</p>
+                  <p>IIT Roorkee, Uttarakhand</p>
                 </div>
               </div>
               <div className="social-links">
