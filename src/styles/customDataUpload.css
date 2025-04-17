@@ -1,0 +1,575 @@
+/* Modern SaaS-style Custom Data Upload Page */
+.custom-data-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  /* Header styling with glass morphism effect */
+  .custom-data-header {
+    padding: 1.75rem 2rem;
+    text-align: center;
+    background-color: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 10;
+  }
+  
+  .custom-data-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: #f8fafc;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.02em;
+  }
+  
+  .custom-data-subtitle {
+    font-size: 1.05rem;
+    color: #94a3b8;
+    margin: 0.5rem auto 0;
+    font-weight: 400;
+    max-width: 600px;
+  }
+  
+  /* Main content layout */
+  .custom-data-content {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    height: calc(100vh - 120px);
+  }
+  
+  /* Upload section with improved styling */
+  .upload-section {
+    width: 35%;
+    min-width: 380px;
+    padding: 1.75rem;
+    overflow-y: auto;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: rgba(15, 23, 42, 0.7);
+  }
+  
+  .map-section {
+    flex: 1;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Modern card styling with subtle hover effect */
+  .upload-container {
+    background-color: rgba(30, 41, 59, 0.8);
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .upload-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Heading with accent line */
+  .upload-container h2 {
+    margin-top: 0;
+    margin-bottom: 1.75rem;
+    font-size: 1.5rem;
+    color: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+  
+  .upload-container h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    border-radius: 2px;
+  }
+  
+  /* File upload area with improved visual feedback */
+  .file-upload-area {
+    margin-bottom: 1.75rem;
+  }
+  
+  .file-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 2rem;
+    border: 2px dashed rgba(75, 85, 99, 0.5);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background-color: rgba(255, 255, 255, 0.02);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .file-upload-label::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .file-upload-label:hover {
+    border-color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.05);
+    transform: scale(1.01);
+  }
+  
+  .file-upload-label:hover::after {
+    opacity: 1;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  /* Animated upload icon */
+  .upload-icon {
+    margin-bottom: 1.25rem;
+    color: #3b82f6;
+    transform: scale(1.2);
+    filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3));
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  
+  .file-upload-label:hover .upload-icon {
+    transform: scale(1.3) translateY(-5px);
+    color: #60a5fa;
+  }
+  
+  .upload-text {
+    color: #94a3b8;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: color 0.2s ease;
+  }
+  
+  .file-upload-label:hover .upload-text {
+    color: #cbd5e1;
+  }
+  
+  /* Status indicators with animations */
+  .upload-status {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    margin-bottom: 1.75rem;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .upload-status svg {
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+  
+  .upload-status.loading {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  
+  .upload-status.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  
+  .upload-status.success {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  
+  /* Improved loading spinner */
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    border-radius: 50%;
+    border-top-color: #3b82f6;
+    animation: spin 0.8s linear infinite;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Data format info section with improved readability */
+  .data-format-info {
+    background-color: rgba(30, 41, 59, 0.5);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s ease;
+  }
+  
+  .data-format-info:hover {
+    transform: translateY(-2px);
+  }
+  
+  .data-format-info h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+    color: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .data-format-info h3::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #3b82f6;
+    border-radius: 50%;
+  }
+  
+  .data-format-info p {
+    margin-top: 0;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+  
+  /* Code example with syntax highlighting style */
+  .code-example {
+    background-color: rgba(15, 23, 42, 0.8);
+    padding: 1.25rem;
+    border-radius: 10px;
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    white-space: pre;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    line-height: 1.5;
+    text-align: left;   
+  }
+  
+  /* Format notes with improved styling */
+  .format-notes {
+    margin-top: 1.25rem;
+    background-color: rgba(15, 23, 42, 0.4);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+  
+  .format-notes p {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: #cbd5e1;
+    font-weight: 500;
+  }
+  
+  .format-notes ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: #94a3b8;
+  }
+  
+  .format-notes li {
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 0.5rem;
+    line-height: 1.5;
+  }
+  
+  .format-notes li::marker {
+    color: #3b82f6;
+  }
+  
+  /* Navigation buttons with hover effects */
+  .navigation-buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 2rem;
+  }
+  
+  .back-button {
+    display: flex;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    background-color: rgba(51, 65, 85, 0.8);
+    color: #f8fafc;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .back-button:hover {
+    background-color: #475569;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .back-button svg {
+    margin-right: 0.75rem;
+    transition: transform 0.2s ease;
+  }
+  
+  .back-button:hover svg {
+    transform: translateX(-3px);
+  }
+  
+  /* Map container with improved styling */
+  .map-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Map instructions overlay with glass morphism */
+  .map-instructions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    background-color: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    animation: fadeIn 0.5s ease;
+  }
+  
+  .instructions-content {
+    text-align: center;
+    padding: 2.5rem;
+    background-color: rgba(30, 41, 59, 0.9);
+    border-radius: 16px;
+    max-width: 450px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    animation: scaleIn 0.4s ease;
+  }
+  
+  @keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .instructions-content svg {
+    color: #3b82f6;
+    margin-bottom: 1.25rem;
+    filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3));
+  }
+  
+  .instructions-content h3 {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    color: #f8fafc;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  
+  .instructions-content p {
+    color: #94a3b8;
+    margin: 0.75rem 0;
+    line-height: 1.6;
+  }
+  
+  /* Legend with improved styling */
+  .visualization-legend {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    background-color: rgba(15, 23, 42, 0.85);
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    animation: slideUp 0.4s ease;
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .legend-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #f8fafc;
+    letter-spacing: 0.01em;
+  }
+  
+  .legend-gradient {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .legend-bar {
+    height: 10px;
+    width: 180px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6, #ef4444);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .legend-low, .legend-high {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    font-weight: 500;
+  }
+  
+  /* Responsive adjustments with improved breakpoints */
+  @media (max-width: 1200px) {
+    .upload-section {
+      width: 40%;
+      min-width: 350px;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .custom-data-content {
+      flex-direction: column;
+      height: auto;
+    }
+    
+    .upload-section {
+      width: 100%;
+      max-width: 100%;
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      max-height: none;
+      padding: 1.5rem;
+    }
+    
+    .map-section {
+      height: 600px;
+    }
+    
+    .upload-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .custom-data-header {
+      padding: 1.25rem;
+    }
+    
+    .custom-data-title {
+      font-size: 1.75rem;
+    }
+    
+    .upload-section {
+      padding: 1.25rem;
+    }
+    
+    .map-section {
+      height: 500px;
+    }
+    
+    .file-upload-label {
+      padding: 2rem 1.5rem;
+    }
+    
+    .data-format-info {
+      padding: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .custom-data-title {
+      font-size: 1.5rem;
+    }
+    
+    .custom-data-subtitle {
+      font-size: 0.95rem;
+    }
+    
+    .upload-container {
+      padding: 1.25rem;
+    }
+    
+    .file-upload-label {
+      padding: 1.75rem 1.25rem;
+    }
+    
+    .map-section {
+      height: 450px;
+    }
+    
+    .instructions-content {
+      padding: 1.75rem;
+      max-width: 320px;
+    }
+    
+    .code-example {
+      font-size: 0.8rem;
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .map-section {
+      height: 400px;
+    }
+    
+    .visualization-legend {
+      bottom: 15px;
+      right: 15px;
+      padding: 0.75rem 1rem;
+    }
+    
+    .legend-bar {
+      width: 120px;
+    }
+    
+    .upload-container h2 {
+      font-size: 1.3rem;
+    }
+    
+    .file-upload-label {
+      padding: 1.5rem 1rem;
+    }
+  }

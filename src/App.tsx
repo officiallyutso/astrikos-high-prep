@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Visualization from './pages/Visualization';
 import CityInvestment from './pages/CityInvestment';
+import CustomDataUpload from './pages/CustomDataUpload';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <CityInvestment />
             </ProtectedRoute>
           } />
+          <Route path="/custom-data" element={<CustomDataUpload />} />
         </Routes>
       </Router>
     </AuthProvider>

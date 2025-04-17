@@ -24,8 +24,7 @@ const cityIcon = new L.Icon({
 });
 
 // Data layer types
-type DataLayer = 'population' | 'traffic' | 'temperature' | 'weather' | 'none';
-
+type DataLayer = 'population' | 'traffic' | 'temperature' | 'weather' | 'custom' | 'none';
 // Define the HeatmapLayer class if it doesn't exist
 if (!(L as any).HeatmapOverlay) {
   (L as any).HeatmapOverlay = function(cfg: any) {
@@ -206,7 +205,7 @@ const Visualization: React.FC = () => {
         city.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         city.country.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredCities(filtered.slice(0, 10)); // Limit to 10 results
+      setFilteredCities(filtered.slice(0, 15)); // Limit to 10 results
       setShowSearch(true);
     } else {
       setFilteredCities([]);
@@ -250,7 +249,7 @@ const Visualization: React.FC = () => {
       case 'population':
         return { intensity: 0.9, radius: 95 };
       case 'traffic':
-        return { intensity: 0.7, radius: 25 };
+        return { intensity: 0.7, radius: 45 };
       case 'temperature':
         return { intensity: 0.6, radius: 30 };
       case 'weather':
@@ -332,6 +331,13 @@ const Visualization: React.FC = () => {
               </svg>
               Weather
             </button>
+            <Link to="/custom-data" className="layer-btn custom-data-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+              </svg>
+              Custom Data
+            </Link>
           </div>
         </div>
         
