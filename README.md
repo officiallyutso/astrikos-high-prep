@@ -103,20 +103,72 @@ graph TD
 | Technology | Purpose | Version |
 |------------|---------|---------|
 | Node.js | Runtime | 18.16.0 |
-| Express | API Server | 4.18.2 |
 | Firebase | Realtime DB | 9.22.0 |
-| MongoDB | Data Storage | 6.0.8 |
-| Redis | Caching | 4.6.7 |
 
-### DevOps
 
-| Technology | Purpose | Version |
-|------------|---------|---------|
-| Docker | Containerization | 23.0.5 |
-| Kubernetes | Orchestration | 1.27.3 |
-| GitHub Actions | CI/CD | - |
-| Prometheus | Monitoring | 2.45.0 |
-| Grafana | Visualization | 9.5.3 |
+### Frontend Architecture
+
+```mermaid
+graph TD
+    A[3D Visualization] --> B[Unity WebGL]
+    A --> C[Three.js]
+    A --> D[CesiumJS]
+    E[2D Mapping] --> F[Leaflet]
+    E --> G[Mapbox GL]
+    H[Data Viz] --> I[Chart.js]
+    H --> J[D3.js]
+    K[State Management] --> L[React Context]
+    K --> M[Firebase Realtime]
+```
+
+### JavaScript Packages Breakdown
+
+#### Core Visualization Libraries
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `three` | ^0.175.0 | Core 3D rendering engine |
+| `@react-three/fiber` | ^9.1.2 | React wrapper for Three.js |
+| `@react-three/drei` | ^10.0.6 | Three.js helpers collection |
+| `cesium` | ^1.128.0 | Geospatial 3D globe visualization |
+| `resium` | ^1.19.0-beta.1 | React components for Cesium |
+| `leaflet` | ^1.9.4 | Lightweight 2D mapping |
+| `react-leaflet` | ^5.0.0 | React components for Leaflet |
+
+#### Data Visualization
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `d3` | ^7.9.0 | Advanced data visualization |
+| `chart.js` | ^4.4.9 | Interactive charts |
+| `react-chartjs-2` | ^5.3.0 | React wrapper for Chart.js |
+| `heatmap.js` | ^2.0.5 | Heatmap visualization |
+| `leaflet-heatmap` | ^1.0.0 | Leaflet heatmap integration |
+| `globe.gl` | ^2.41.4 | 3D globe visualization |
+| `three-globe` | ^2.42.4 | Three.js globe component |
+
+#### GIS & Mapping
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `mapbox-gl` | ^3.11.0 | Advanced vector mapping |
+| `@types/mapbox-gl` | ^3.4.1 | TypeScript definitions |
+
+#### Firebase Integration
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `firebase` | ^11.6.0 | Firebase SDK core |
+| `react-firebase-hooks` | ^5.1.1 | Firebase React hooks |
+
+#### Utility & UI
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `react` | ^19.0.0 | Core React library |
+| `react-dom` | ^19.0.0 | React DOM rendering |
+| `react-router-dom` | ^7.5.1 | Client-side routing |
+| `react-icons` | ^5.5.0 | Icon library |
+| `react-modal` | ^3.16.3 | Accessible modal dialogs |
+| `axios` | ^1.8.4 | HTTP client |
+
+
+
 
 ## System Architecture
 
@@ -156,6 +208,21 @@ flowchart TB
     A --> I[User Controls]
     I --> J[Camera Controls]
     I --> K[Annotation Tools]
+```
+
+### Final Architecture Overview
+
+```mermaid
+flowchart LR
+    A[User Interface] --> B[Unity WebGL]
+    A --> C[Three.js]
+    A --> D[CesiumJS]
+    A --> E[Leaflet]
+    B --> F[Firebase Firestore]
+    C --> F
+    D --> F
+    E --> F
+    F --> G[(Firestore Database)]
 ```
 
 ## Installation Guide
@@ -657,13 +724,4 @@ gantt
    [https://www.d3indepth.com/](https://www.d3indepth.com/)
 
 
-### Community
 
-Join our developer community:
-- [Discord Channel](https://discord.gg/astrikos)
-- [GitHub Discussions](https://github.com/astrikos-ai/discussions)
-- [Stack Overflow Tag](https://stackoverflow.com/questions/tagged/astrikos)
-
----
-
-This concludes the comprehensive documentation for Astrikos.AI. For additional support, please contact our developer relations team at developers@astrikos.ai.
