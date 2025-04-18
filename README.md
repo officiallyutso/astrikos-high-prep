@@ -275,7 +275,7 @@ Before you begin, ensure you have the following installed on your system:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/officiallyutso/astrikos-high-prep.git
+git clone -b testing/utso --single-branch https://github.com/officiallyutso/astrikos-high-prep.git
 cd astrikos-high-prep
 ```
 
