@@ -1,7 +1,7 @@
 # Astrikos - Intelligent Infrastructure Visualization Platform
 
 
-*Revolutionizing urban planning and infrastructure management through 3D visualization*
+*Revolutionizing urban planning and infrastructure management through 3D visualization*<br>
 *Refer to testing/utso for most updated code*
 
 ## Table of Contents
